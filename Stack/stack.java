@@ -3,8 +3,8 @@ import java.util.Scanner;
 import static java.lang.System.exit;
 
 class Lifo{
-    int [] arr = {};
-    int top = arr.length-1;
+    int arr[] = new int[5];
+    int top = -1;
     Scanner scanner = new Scanner(System.in);
     void push(){
         top++;
