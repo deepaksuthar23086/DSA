@@ -85,8 +85,9 @@ class Queue{
 };
 int main(){
     Queue queue ;
+    int exit=1;
 
-    while(1){
+    while(exit==1){
         cout << endl;
         cout << "1. Enqueue " << endl;
         cout << "2. Dequeue " << endl;
@@ -125,7 +126,8 @@ int main(){
             queue.traversing();
             break;
         case 8:
-            exit(0);
+            exit=2;
+            break;
         default:
             cout << "Please select right option " << endl;
             break;
