@@ -10,12 +10,17 @@ class Lifo{
         top++;
         System.out.print("Enter Push Value ");
         int number = scanner.nextInt();
+        
+        // need to add this number in array
 
     }
     void pop(){
         top--;
     }
     void travessing(){
+        
+        // traversing will from top to 0
+        
         for (int i = 0; i <= top; i++ ){
             System.out.println(i + "Index Value => " + arr[i]);
         }
@@ -23,7 +28,7 @@ class Lifo{
     void peak(){
         System.out.println("Peak Value : " + arr[top]);
     }
-    void size(){
+    void size(){ /// this method not needed, as top itself denote the number of elselements in the array.
         int high = 0;
         for(int i = 0; i <= top; i++){
             high = i +1;
