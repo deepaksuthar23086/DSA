@@ -1,25 +1,31 @@
-class BubbleSort{
+public class InsertionSort {
 
-    public static void bubbleSort(int arr[]){
+    public static void insertionSort(int arr[]){
+        for(int i=1; i<arr.length; i++){
 
-        for(int i=0; i<arr.length; i++){
+            int current = arr[i];
 
-            for(int j=0; j<arr.length-i-1; j++){
+            int empty = i;
 
-                if(arr[j]>arr[j+1]){
+            int j = i-1;
 
-                    int temp = arr[j];
+            while(j>=0){
 
-                    arr[j] = arr[j+1];
+                if(arr[j]> current){
 
-                    arr[j+1] = temp;
+                    arr[j+1]=arr[j];
+
+                    empty = j;
                 }
+                j--;
             }
+            arr[empty] = current;
         }
     }
-    public static void main(String[] args) {
+    
+    public static void main(String[] args) throws Exception {
 
-        int[] arr = {6,2,5,3,4,1};
+        int arr[]= {7,4,8,2,1};
 
         System.out.print("Before Array => {");
 
@@ -33,7 +39,7 @@ class BubbleSort{
         }
         System.out.println("}");
 
-        bubbleSort(arr);
+        insertionSort(arr);
 
         System.out.print("After Array => {");
 

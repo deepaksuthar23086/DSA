@@ -1,4 +1,5 @@
-#include<iostream>
+	                                                                                                                                                                                                                                                                                                                                                                                                       
+	                                                                                                                                                                                                                                                                                                                                                                                                       #include<iostream>
 #include<stack>
 using namespace std;
 bool isoprend(char ch){
