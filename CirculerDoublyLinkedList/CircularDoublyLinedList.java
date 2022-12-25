@@ -22,7 +22,8 @@ public class CircularDoublyLinedList {
         if (head == null) {
             System.out.println("right");
             head = newNode;
-            head.right = head.left;
+            head.right = head;
+            head.left = head;
         } else {
             newNode.right = head.left;
             head.right = newNode.left;
