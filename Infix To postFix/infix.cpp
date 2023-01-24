@@ -1,56 +1,81 @@
-	                                                                                                                                                                                                                                                                                                                                                                                                       
-	                                                                                                                                                                                                                                                                                                                                                                                                       #include<iostream>
-#include<stack>
+#include <iostream>
+#include <stack>
 using namespace std;
-bool isoprend(char ch){
+
+bool isOperand(char ch)
+{
     return (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z');
 }
-int precedence(char op){
-    if(op == '+' || op == '-'){
+
+int precedence(char op)
+{
+    if (op == '+' || op == '-')
+    {
         return 1;
-    }else if(op == '*' || op == '/'){
+    }
+    else if (op == '*' || op == '/')
+    {
         return 2;
-    }else{
+    }
+    else
+    {
         return -1;
     }
 }
-int main(){
-    
-    string infixExpretion;
-    string postfixExpretion;
-    stack <char> st;
-    
-    cout << "Enter infix Expretion :";
-    cin >> infixExpretion;
 
-    for(int i = 0; i <= infixExpretion.size(); i++){
-        int current = infixExpretion[i];
-        if(isoprend(current)){
-            postfixExpretion += current;
-        }else if(current == '('){
-            st.push(current);
-        }else if(current == ')'){
-            while (st.empty() && st.top() != '(')
-            {
-                postfixExpretion += st.top();
-                st.pop();
-            }if(!st.empty()){
-                st.pop();
-            }
-            
-        }else{
-            while(!st.empty() && precedence(st.top()) > precedence(current)){
-                postfixExpretion += st.top();
-                st.pop();
-            }
-            st.push(current);
-        }
-    }
-    while (!st.empty())
+int main()
+{
+
+    string infixExpresion;
+    string postfixExpresion;
+    stack<char> st;
+
+    char multipleTime = 'y';
+
+    while (multipleTime == 'y')
     {
-        postfixExpretion += st.top();
-        st.pop();
+        cout << "Enter infix Expresion --> ";
+        cin >> infixExpresion;
+
+        for (int i = 0; i <= infixExpresion.size(); i++)
+        {
+            int current = infixExpresion[i];
+            if (isOperand(current))
+            {
+                postfixExpresion += current;
+            }
+            else if (current == '(')
+            {
+                st.push(current);
+            }
+            else if (current == ')')
+            {
+                while (st.top() != '(')
+                {
+                    postfixExpresion += st.top();
+                    st.pop();
+                }
+                st.pop();
+            }
+            else
+            {
+                while (!st.empty() && precedence(st.top()) > precedence(current))
+                {
+                    postfixExpresion += st.top();
+                    st.pop();
+                }
+                st.push(current);
+            }
+        }
+        while (!st.empty())
+        {
+            postfixExpresion += st.top();
+            st.pop();
+        }
+
+        cout << "Postfix Expresion --> " << postfixExpresion << endl;
+        cout << "Want to decide (y/n) --> ";
+        cin >> multipleTime;
+        postfixExpresion ="";
     }
-        
-    cout << postfixExpretion;
 }
