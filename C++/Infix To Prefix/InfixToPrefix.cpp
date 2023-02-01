@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stack>
+#include <algorithm>
 
 using namespace std;
 int precedence(char ch)
@@ -21,74 +22,85 @@ int precedence(char ch)
         return -1;
     }
 }
-string reveres(string r)
+string reverseString(string str)
 {
-    string Reverse;
-    for (int i = r.size(); i >= 0; i--)
+    reverse(str.begin(), str.end());
+    int l = str.size();
+    for (int i = 0; i <= l; i++)
     {
-        char correcter = r[i];
-        if (correcter == ')')
+        if (str[i] == ')')
         {
-            correcter = '(';
+            str[i] = '(';
         }
-        else if (correcter == '(')
+        else if (str[i] == '(')
         {
-            correcter = ')';
+            str[i] = ')';
         }
-        Reverse += correcter;
     }
-    return Reverse;
+    return str;
+}
+
+string infixToPostfix(string infixExpression)
+{
+    stack<char> st;
+    int l = infixExpression.size();
+    string postfixExpression = "";
+    for (int i = 0; i <= l; i++)
+    {
+        int current = infixExpression[i];
+
+        if (current >= 'a' && current <= 'z' || current >= 'A' && current <= 'Z')
+        {
+            postfixExpression += current;
+        }
+        else if (current == '(')
+        {
+            st.push(current);
+        }
+        else if (current == ')')
+        {
+            while (!st.empty() && st.top() != '(')
+            {
+                postfixExpression += st.top();
+                st.pop();
+            }
+            st.pop();
+        }
+        else
+        {
+            while (!st.empty() && precedence(st.top()) >= precedence(current))
+            {
+                postfixExpression += st.top();
+                st.pop();
+            }
+            st.push(current);
+        }
+    }
+    while (!st.empty())
+    {
+        postfixExpression += st.top();
+        st.pop();
+    }
+    return postfixExpression;
+}
+string infixToPrefix(string infixString)
+{
+    string infix = reverseString(infixString);
+    string postfix = infixToPostfix(infix);
+    string prefix = reverseString(postfix);
+    return prefix;
 }
 int main()
 {
-    string infixExpression, prefixExpression;
-    stack<char> st;
+    string infixExpression;
     char multipleTime = 'y';
 
     while (multipleTime == 'y')
     {
         cout << "Enter Infix Expression --> ";
         cin >> infixExpression;
-        reveres(infixExpression);
-        for (int i = 0; i <= infixExpression.size(); i++)
-        {
-            int current = infixExpression[i];
-
-            if (current >= 'a' && current <= 'z' || current >= 'A' && current <= 'Z')
-            {
-                prefixExpression += current;
-            }
-            else if (current == '(')
-            {
-                st.push(current);
-            }
-            else if (current == ')')
-            {
-                while (!st.empty() && st.top() != '(')
-                {
-                    prefixExpression += st.top();
-                    st.pop();
-                }
-                st.pop();
-            }
-            else
-            {
-                while (!st.empty() && precedence(st.top()) >= precedence(current))
-                {
-                    prefixExpression += st.top();
-                    st.pop();
-                }
-                st.push(current);
-            }
-        }
-        while (!st.empty())
-        {
-            prefixExpression += st.top();
-            st.pop();
-        }
-        cout << "Prefix Expresion --> " << reveres(prefixExpression) << endl;
+        cout << "Prefix Expresion --> " << infixToPrefix(infixExpression) << endl;
         cout << "Want to decide (y/n) --> ";
         cin >> multipleTime;
-        prefixExpression = "";
     }
 }
