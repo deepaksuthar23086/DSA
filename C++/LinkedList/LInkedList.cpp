@@ -66,10 +66,11 @@ void traversing(Node *head)
     head = head->next;
     while (head != NULL)
     {
-        cout << i << " -> " << head->data << endl;
+        cout << head->data <<"--> ";
         head = head->next;
         i++;
     }
+    cout << endl;
 }
 void searching(Node *head)
 {
@@ -84,18 +85,12 @@ void searching(Node *head)
             cout << "Element available" << endl;
             break;
         }
-        // if (searchElement != getLastNode(head)->data)
-        // {
-        //     cout << "Element not found" << endl;
-            
-        // }
         head = head->next;
     }
 }
 void updatingElement(Node *head)
 {
-    int oldElement;
-    int updateElement;
+    int oldElement, updateElement;
     cout << "Enter old element ";
     cin >> oldElement;
     if (head->next == NULL)
@@ -104,6 +99,7 @@ void updatingElement(Node *head)
     }
     else
     {
+        int temp =1;
         while (head != NULL)
         {
             if (oldElement == head->data)
@@ -111,12 +107,7 @@ void updatingElement(Node *head)
                 cout << "Enter update Element ";
                 cin >> updateElement;
                 head->data = updateElement;
-            }
-            if (oldElement != getLastNode(head)->data)
-            {
-
-                cout << "Element not found " << endl;
-                break;
+                temp = 2;
             }
             head = head->next;
         }
